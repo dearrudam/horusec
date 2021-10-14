@@ -285,6 +285,30 @@ func main() {
 define('AUTH_KEY', 'put your unique phrase here');
 define('DB_PASSWORD', 'wen0221!');
 `
+
+	SampleVulnerableJavaXMLParsingVulnerableToXXE = `
+class Foo {
+	void fn(String input) {
+		XMLReader reader = XMLReaderFactory.createXMLReader();
+		reader.parse(input)
+	}
+}
+	`
+
+	SampleVulnerableJavaScriptLogSensitiveInformation = `
+console.log("user email: ", email) 
+console.debug("user password: ", pwd) 
+	`
+
+	SampleVulnerableJavaScriptUseEval = `
+function f(req) {
+	eval("bash -c" + req.body);
+}
+	`
+
+	SampleVulnerableJavaScriptDisableTlsRejectUnauthorized = `
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+	`
 )
 
 const (
@@ -560,5 +584,11 @@ func main() {
 	SampleSafeLeaksRegularWPConfig = `
 <?php
 define('AUTH_KEY', getenv("AUTH_KEY"));
+	`
+
+	SampleSafeJavaScriptUseEval = `
+function f() {
+	eval("echo foo");
+}
 	`
 )
